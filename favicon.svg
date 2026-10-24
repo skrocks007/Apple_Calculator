@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="apple-calc-bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2D2D30"/>
+      <stop offset="100%" stop-color="#141416"/>
+    </linearGradient>
+    <linearGradient id="apple-orange" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFB340"/>
+      <stop offset="100%" stop-color="#FF9F0A"/>
+    </linearGradient>
+  </defs>
+  <!-- App Icon Squircle Background -->
+  <rect width="512" height="512" rx="115" fill="url(#apple-calc-bg)"/>
+  
+  <!-- Subtle inner border -->
+  <rect x="4" y="4" width="504" height="504" rx="111" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="6"/>
+
+  <!-- Orange Plus / Equal accents -->
+  <circle cx="360" cy="150" r="48" fill="url(#apple-orange)"/>
+  <rect x="336" y="145" width="48" height="10" rx="5" fill="#FFFFFF"/>
+  <rect x="355" y="126" width="10" height="48" rx="5" fill="#FFFFFF"/>
+
+  <circle cx="360" cy="360" r="48" fill="url(#apple-orange)"/>
+  <rect x="338" y="348" width="44" height="8" rx="4" fill="#FFFFFF"/>
+  <rect x="338" y="364" width="44" height="8" rx="4" fill="#FFFFFF"/>
+
+  <!-- Light Gray & Dark Gray Keys -->
+  <circle cx="150" cy="150" r="48" fill="#A5A5A5"/>
+  <text x="150" y="162" font-family="-apple-system, sans-serif" font-size="34" font-weight="600" text-anchor="middle" fill="#000000">AC</text>
+
+  <circle cx="150" cy="360" r="48" fill="#3A3A3C"/>
+  <circle cx="255" cy="360" r="48" fill="#3A3A3C"/>
+  <circle cx="255" cy="255" r="48" fill="#3A3A3C"/>
+  <circle cx="150" cy="255" r="48" fill="#3A3A3C"/>
+  <circle cx="360" cy="255" r="48" fill="url(#apple-orange)"/>
+  <text x="360" y="266" font-family="-apple-system, sans-serif" font-size="44" font-weight="400" text-anchor="middle" fill="#FFFFFF">×</text>
+</svg>

@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Apple Calculator - iPhone (iOS 18) & Mac Edition</title>
+  <meta name="description" content="Pixel-perfect Apple Calculator featuring iOS 18 iPhone portrait & landscape scientific mode, Math Notes, in-line unit converter, and macOS Sequoia edition.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+</head>
+<body>
+  <!-- Ambient Dynamic Lighting Backdrop -->
+  <div class="ambient-glow"></div>
+
+  <!-- Top Device Switcher Header Bar -->
+  <header class="device-switcher-bar">
+    <div class="device-switcher-pills">
+      <button class="device-pill active" id="device-btn-iphone" data-device="iphone" aria-label="iPhone Mode">
+        <svg class="device-icon" viewBox="0 0 24 24">
+          <path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/>
+        </svg>
+        <span>iPhone (iOS 18)</span>
+      </button>
+      <button class="device-pill" id="device-btn-mac" data-device="mac" aria-label="Mac Mode">
+        <svg class="device-icon" viewBox="0 0 24 24">
+          <path d="M20 18c1.1 0 1.99-.9 1.99-2L22 5c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2H0c0 1.1.9 2 2 2h20c1.1 0 2-.9 2-2h-4zM4 5h16v11H4V5zm8 14c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/>
+        </svg>
+        <span>Mac (macOS Sequoia)</span>
+      </button>
+    </div>
+
+    <!-- Quick Global Actions (Rotate, Sound, Theme) -->
+    <div class="global-actions">
+      <!-- Rotate iPhone Button -->
+      <button class="icon-btn iphone-only-btn" id="btn-rotate-phone" title="Rotate iPhone (Portrait / Landscape)" aria-label="Rotate iPhone">
+        <svg viewBox="0 0 24 24">
+          <path d="M7.11 8.53L5.7 7.11C4.8 8.27 4.24 9.61 4.07 11h2.02c.14-.87.51-1.72 1.02-2.47zM6.09 13H4.07c.17 1.39.72 2.73 1.62 3.89l1.41-1.42c-.52-.75-.88-1.6-1.01-2.47zm1.01 5.32c1.16.9 2.51 1.44 3.9 1.61V17.9c-.87-.15-1.71-.49-2.46-1.03L7.1 18.32zM13 4.07V1L8.45 5.55 13 10V6.09c3.37 0 6.09 2.72 6.09 6.09s-2.72 6.09-6.09 6.09v2c4.42 0 8-3.58 8-8s-3.58-8-8-8.11z"/>
+        </svg>
+        <span class="btn-text-badge">Rotate</span>
+      </button>
+
+      <!-- Sound Toggle -->
+      <button class="icon-btn" id="sound-toggle-btn" title="Toggle Haptic Sound" aria-label="Toggle Sound">
+        <svg viewBox="0 0 24 24">
+          <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+        </svg>
+      </button>
+
+      <!-- Theme Toggle -->
+      <button class="icon-btn" id="theme-toggle-btn" title="Toggle Light/Dark Theme" aria-label="Toggle Theme">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-3.03 0-5.5-2.47-5.5-5.5 0-1.82.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Calculator Shell Container -->
+  <main class="calculator-app-container">
+    <div id="calculator-card" class="calculator-card device-iphone mode-basic">
+      
+      <!-- iPhone Outer Buttons / Bezel Accents (Silhouettes) -->
+      <div class="iphone-hardware-btn iphone-btn-action"></div>
+      <div class="iphone-hardware-btn iphone-btn-vol-up"></div>
+      <div class="iphone-hardware-btn iphone-btn-vol-down"></div>
+      <div class="iphone-hardware-btn iphone-btn-power"></div>
+
+      <!-- iPhone Status Bar (iOS 18) -->
+      <div class="iphone-status-bar" id="iphone-status-bar">
+        <span class="status-time" id="status-clock">9:41</span>
+        
+        <!-- Dynamic Island -->
+        <div class="dynamic-island" id="dynamic-island" title="Dynamic Island">
+          <div class="island-camera"></div>
+          <div class="island-sensor"></div>
+        </div>
+
+        <div class="status-icons">
+          <!-- Cellular -->
+          <svg class="status-icon" viewBox="0 0 24 24">
+            <path d="M2 22h20V2L2 22z"/>
+          </svg>
+          <!-- Wi-Fi -->
+          <svg class="status-icon" viewBox="0 0 24 24">
+            <path d="M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98A16.88 16.88 0 0 0 12 4z"/>
+          </svg>
+          <!-- Battery -->
+          <div class="status-battery">
+            <div class="battery-fill"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- macOS Window Titlebar (Active in Mac mode) -->
+      <div class="mac-titlebar" id="mac-titlebar">
+        <!-- Left: Traffic Lights & Split Sidebar Button -->
+        <div class="mac-titlebar-left">
+          <div class="traffic-lights">
+            <div class="traffic-light traffic-close" id="btn-traffic-close" title="Reset Calculator">
+              <span class="traffic-glyph">×</span>
+            </div>
+            <div class="traffic-light traffic-min" id="btn-traffic-min" title="Basic Mode">
+              <span class="traffic-glyph">−</span>
+            </div>
+            <div class="traffic-light traffic-expand" id="btn-traffic-expand" title="Zoom / Resize Window">
+              <span class="traffic-glyph">+</span>
+            </div>
+          </div>
+          <button class="mac-sidebar-btn" id="mac-sidebar-btn" title="Toggle Calculation History" aria-label="Toggle Calculation History">
+            <svg viewBox="0 0 18 14" width="16" height="12" fill="none" stroke="currentColor">
+              <rect x="0.75" y="0.75" width="16.5" height="12.5" rx="2.5" stroke-width="1.2"/>
+              <line x1="5.5" y1="0.75" x2="5.5" y2="13.25" stroke-width="1.2"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Mac Actions on Right -->
+        <div class="mac-actions">
+          <button class="mac-action-btn" id="mac-window-resize-btn" title="Toggle Window Size (Standard / Large)" aria-label="Toggle Calculator Size">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <button class="mac-calc-menu-btn" id="mac-calc-menu-btn" title="Calculator Modes" aria-label="Calculator Modes">
+            <svg class="pocket-calc-icon" viewBox="0 0 24 24">
+              <rect x="4.5" y="2.5" width="15" height="19" rx="3.2" stroke="currentColor" stroke-width="1.6" fill="none" />
+              <rect x="7" y="5.2" width="10" height="3" rx="0.75" fill="currentColor" stroke="none" />
+              <rect x="7.2" y="10.2" width="2.4" height="2" rx="0.5" fill="currentColor" stroke="none" />
+              <rect x="10.8" y="10.2" width="2.4" height="2" rx="0.5" fill="currentColor" stroke="none" />
+              <rect x="14.4" y="10.2" width="2.4" height="2" rx="0.5" fill="currentColor" stroke="none" />
+              <rect x="7.2" y="13.2" width="2.4" height="2" rx="0.5" fill="currentColor" stroke="none" />
+              <rect x="10.8" y="13.2" width="2.4" height="2" rx="0.5" fill="currentColor" stroke="none" />
+              <rect x="14.4" y="13.2" width="2.4" height="2" rx="0.5" fill="currentColor" stroke="none" />
+              <rect x="7.2" y="16.2" width="2.4" height="2" rx="0.5" fill="currentColor" stroke="none" />
+              <rect x="10.8" y="16.2" width="2.4" height="2" rx="0.5" fill="currentColor" stroke="none" />
+              <rect x="14.4" y="16.2" width="2.4" height="2" rx="0.5" fill="currentColor" stroke="none" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- iPhone In-App Navigation Bar (History on Left, Mode Menu on Right) -->
+      <div class="iphone-nav-bar" id="iphone-nav-bar">
+        <!-- History / Clock Button (Top Left) -->
+        <button class="nav-circle-btn" id="btn-iphone-history" title="Calculation History" aria-label="Calculation History">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.2 3.2.8-1.3-4.5-2.7V7z"/>
+          </svg>
+        </button>
+
+        <!-- Calculator Mode Menu Button (Top Right) -->
+        <button class="nav-circle-btn" id="btn-iphone-calc-menu" title="Calculator Modes" aria-label="Calculator Modes">
+          <svg class="pocket-calc-icon" viewBox="0 0 24 24">
+            <rect x="4.5" y="2.5" width="15" height="19" rx="3.2" stroke="currentColor" stroke-width="1.6" fill="none" />
+            <rect x="7" y="5.2" width="10" height="3" rx="0.75" fill="currentColor" stroke="none" />
+            <rect x="7.2" y="10.2" width="2.4" height="2" rx="0.5" fill="currentColor" stroke="none" />
+            <rect x="10.8" y="10.2" width="2.4" height="2" rx="0.5" fill="currentColor" stroke="none" />
+            <rect x="14.4" y="10.2" width="2.4" height="2" rx="0.5" fill="currentColor" stroke="none" />
+            <rect x="7.2" y="13.2" width="2.4" height="2" rx="0.5" fill="currentColor" stroke="none" />
+            <rect x="10.8" y="13.2" width="2.4" height="2" rx="0.5" fill="currentColor" stroke="none" />
+            <rect x="14.4" y="13.2" width="2.4" height="2" rx="0.5" fill="currentColor" stroke="none" />
+            <rect x="7.2" y="16.2" width="2.4" height="2" rx="0.5" fill="currentColor" stroke="none" />
+            <rect x="10.8" y="16.2" width="2.4" height="2" rx="0.5" fill="currentColor" stroke="none" />
+            <rect x="14.4" y="16.2" width="2.4" height="2" rx="0.5" fill="currentColor" stroke="none" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mode Popover Menu (Shared between iPhone and Mac) -->
+      <div class="ios-menu-popover" id="ios-menu-popover">
+        <!-- 1. Basic -->
+        <button class="ios-menu-item active" data-mode="basic" id="pop-item-basic">
+          <span class="menu-check" id="check-basic">✓</span>
+          <span class="menu-icon">
+            <svg viewBox="0 0 24 24" width="16" height="16">
+              <path fill="currentColor" d="M4 4h2v2h2v2H6v2H4V8H2V6h2V4zm12 3h6v2h-6V7zM3.5 15.5l1.4-1.4 1.8 1.8 1.8-1.8 1.4 1.4-1.8 1.8 1.8-1.8 1.8-1.4 1.4-1.8-1.8-1.8 1.8-1.4-1.4 1.8-1.8-1.8-1.8zm13 0a1.2 1.2 0 110-2.4 1.2 1.2 0 010 2.4zm-3 2h6v1.8h-6V18zm3 3.5a1.2 1.2 0 110-2.4 1.2 1.2 0 010 2.4z"/>
+            </svg>
+          </span>
+          <span class="menu-label">Basic</span>
+        </button>
+
+        <!-- 2. Scientific -->
+        <button class="ios-menu-item" data-mode="scientific" id="pop-item-scientific">
+          <span class="menu-check" id="check-scientific"></span>
+          <span class="menu-icon menu-fx-icon">ƒ(x)</span>
+          <span class="menu-label">Scientific</span>
+        </button>
+
+        <!-- 3. Programmer (Mac Edition Only) -->
+        <button class="ios-menu-item mac-only-menu-item" data-mode="programmer" id="pop-item-programmer">
+          <span class="menu-check" id="check-programmer"></span>
+          <span class="menu-icon">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+              <path d="M6 4h12a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2zm2 3a1 1 0 00-1 1v8a1 1 0 001 1h8a1 1 0 001-1V8a1 1 0 00-1-1H8zm1-5v2h2V2H9zm4 0v2h2V2h-2zm-8 7H3v2h2V9zm0 4H3v2h2v-2zm16-4h-2v2h2V9zm0 4h-2v2h2v-2zM9 20v2h2v-2H9zm4 0v2h2v-2h-2z"/>
+            </svg>
+          </span>
+          <span class="menu-label">Programmer</span>
+        </button>
+
+        <!-- Divider 1 (Mac Only) -->
+        <div class="ios-menu-divider mac-only-menu-item"></div>
+
+        <!-- 4. Math Notes... -->
+        <button class="ios-menu-item" data-mode="mathnotes" id="pop-item-mathnotes">
+          <span class="menu-check" id="check-mathnotes"></span>
+          <span class="menu-icon">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+              <path d="M12 2l1.6 4.8L18 8.4l-3.8 2.8 1.4 4.8-3.6-2.6-3.6 2.6 1.4-4.8L6 8.4l4.4-1.6L12 2zm-7 14l.8 2.4L8 19.2l-1.9 1.4.7 2.4-1.8-1.3-1.8 1.3.7-2.4-1.9-1.4 2.2-.8L5 16zm14 0l.8 2.4L22 19.2l-1.9 1.4.7 2.4-1.8-1.3-1.8 1.3.7-2.4-1.9-1.4 2.2-.8L19 16z"/>
+            </svg>
+          </span>
+          <span class="menu-label">Math Notes...</span>
+        </button>
+
+        <!-- Divider 2 -->
+        <div class="ios-menu-divider"></div>
+
+        <!-- 5. Convert (Gold/Amber pill when active) -->
+        <button class="ios-menu-item" id="menu-toggle-convert">
+          <span class="menu-check" id="check-convert"></span>
+          <span class="menu-icon">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+              <path d="M6.99 11L3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z"/>
+            </svg>
+          </span>
+          <span class="menu-label">Convert</span>
+        </button>
+
+        <!-- 6. RPN Mode (Mac Edition Only) -->
+        <button class="ios-menu-item mac-only-menu-item" id="menu-toggle-rpn">
+          <span class="menu-check" id="check-rpn"></span>
+          <span class="menu-icon">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+              <rect x="4" y="5.5" width="16" height="2.5" rx="1.25"/>
+              <rect x="4" y="10.75" width="16" height="2.5" rx="1.25"/>
+              <rect x="4" y="16" width="16" height="2.5" rx="1.25"/>
+            </svg>
+          </span>
+          <span class="menu-label">RPN Mode</span>
+        </button>
+      </div>
+
+      <!-- IN-LINE CONVERTER DISPLAY (iOS 18 Screenshot 2 Style) -->
+      <div class="inline-converter" id="inline-converter" style="display: none;">
+        <div class="converter-top-row">
+          <span class="inline-val-text" id="convert-source-val">1,000</span>
+          <select class="unit-pill-dropdown" id="inline-source-unit">
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <option value="GBP">GBP</option>
+            <option value="JPY">JPY</option>
+            <option value="CAD">CAD</option>
+            <option value="AUD">AUD</option>
+            <option value="INR">INR</option>
+            <option value="CHF">CHF</option>
+          </select>
+        </div>
+        <div class="converter-divider-row">
+          <button class="inline-swap-btn" id="inline-swap-btn" title="Swap Units" aria-label="Swap Units">
+            ⇅
+          </button>
+          <div class="converter-divider-line"></div>
+        </div>
+        <div class="converter-bottom-row">
+          <span class="inline-val-text large-target" id="convert-target-val">876.90</span>
+          <select class="unit-pill-dropdown" id="inline-target-unit">
+            <option value="EUR">EUR</option>
+            <option value="USD">USD</option>
+            <option value="GBP">GBP</option>
+            <option value="JPY">JPY</option>
+            <option value="CAD">CAD</option>
+            <option value="AUD">AUD</option>
+            <option value="INR">INR</option>
+            <option value="CHF">CHF</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- STANDARD DIGITAL READOUT (Used when Convert is OFF) -->
+      <div class="calc-display-container" id="standard-display-container" title="Click or Ctrl+C to copy. Swipe to delete digit.">
+        <div class="display-meta-bar">
+          <div class="display-badges">
+            <span class="badge" id="rad-badge">RAD</span>
+            <span class="badge" id="rpn-badge" style="display: none;">RPN</span>
+            <span class="badge" id="memory-badge" style="display: none;">M</span>
+          </div>
+          <div id="calc-subdisplay" class="calc-subdisplay"></div>
+        </div>
+        <div id="calc-display" class="calc-display">0</div>
+        <div class="swipe-hint">Swipe to delete • Click to copy</div>
+
+        <!-- PROGRAMMER RADIX DISPLAY (macOS Programmer Mode) -->
+        <div class="programmer-radix-panel" id="programmer-radix-panel" style="display: none;">
+          <div class="radix-row active" data-radix="16" id="radix-row-hex">
+            <span class="radix-tag">HEX</span>
+            <span class="radix-digits" id="radix-val-hex">0</span>
+          </div>
+          <div class="radix-row" data-radix="10" id="radix-row-dec">
+            <span class="radix-tag">DEC</span>
+            <span class="radix-digits" id="radix-val-dec">0</span>
+          </div>
+          <div class="radix-row" data-radix="8" id="radix-row-oct">
+            <span class="radix-tag">OCT</span>
+            <span class="radix-digits" id="radix-val-oct">0</span>
+          </div>
+          <div class="radix-row" data-radix="2" id="radix-row-bin">
+            <span class="radix-tag">BIN</span>
+            <span class="radix-digits" id="radix-val-bin">0000 0000</span>
+          </div>
+          <div class="programmer-meta-bar">
+            <div class="word-size-pills">
+              <button class="word-size-pill active" data-bits="64">64-bit</button>
+              <button class="word-size-pill" data-bits="32">32-bit</button>
+              <button class="word-size-pill" data-bits="16">16-bit</button>
+              <button class="word-size-pill" data-bits="8">8-bit</button>
+            </div>
+            <span class="ascii-preview" id="ascii-preview">ASCII: '\0'</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- MATH NOTES VIEW (iOS 18 Interactive Notes) -->
+      <div id="math-notes-view" class="math-notes-view" style="display: none;">
+        <div class="notes-header">
+          <div class="notes-title">📝 Math Notes</div>
+          <div class="notes-header-actions">
+            <button id="btn-clear-notes" class="notes-btn-clear" title="Clear Notes">Clear</button>
+            <button id="btn-close-notes" class="notes-close-btn">Done</button>
+          </div>
+        </div>
+        
+        <!-- Math Toolbar for quick insertion of math operators/symbols on iPhone & Mac -->
+        <div class="notes-math-toolbar">
+          <button class="notes-tool-btn" data-insert="+">+</button>
+          <button class="notes-tool-btn" data-insert="-">−</button>
+          <button class="notes-tool-btn" data-insert="*">×</button>
+          <button class="notes-tool-btn" data-insert="/">÷</button>
+          <button class="notes-tool-btn" data-insert="=">=</button>
+          <button class="notes-tool-btn" data-insert="(">(</button>
+          <button class="notes-tool-btn" data-insert=")">)</button>
+          <button class="notes-tool-btn" data-insert="^">xʸ</button>
+          <button class="notes-tool-btn" data-insert="sqrt(">√</button>
+          <button class="notes-tool-btn" data-insert="pi">π</button>
+          <button class="notes-tool-btn" data-insert="%">%</button>
+        </div>
+
+        <div class="notes-content">
+          <div class="notes-instructions">Type or tap symbols to write math expressions. Enter or <code>=</code> calculates live:</div>
+          <textarea class="notes-textarea" id="notes-textarea" placeholder="25 * 4 =&#10;1500 / 12 =&#10;sqrt(144) + 8 =&#10;5 ^ 3 =&#10;pi * 2 ="></textarea>
+          <div class="notes-results-panel" id="notes-results-panel">
+            <div class="notes-res-line">25 * 4 = <strong>100</strong></div>
+            <div class="notes-res-line">1500 / 12 = <strong>125</strong></div>
+            <div class="notes-res-line">sqrt(144) + 8 = <strong>20</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Keypad Section -->
+      <div class="keypad-wrapper" id="keypad-wrapper">
+        <!-- 1. Scientific Keypad (30 keys, 6 cols x 5 rows) -->
+        <div id="scientific-keypad" class="scientific-keypad">
+          <!-- Row 1 -->
+          <button class="calc-btn btn-scientific" data-action="paren-open">(</button>
+          <button class="calc-btn btn-scientific" data-action="paren-close">)</button>
+          <button class="calc-btn btn-scientific" data-action="memory" data-value="mc">mc</button>
+          <button class="calc-btn btn-scientific" data-action="memory" data-value="m+">m+</button>
+          <button class="calc-btn btn-scientific" data-action="memory" data-value="m-">m−</button>
+          <button class="calc-btn btn-scientific" data-action="memory" data-value="mr">mr</button>
+
+          <!-- Row 2 -->
+          <button class="calc-btn btn-scientific" id="btn-2nd" data-action="toggle-second">2<sup>nd</sup></button>
+          <button class="calc-btn btn-scientific" data-action="scientific" data-value="sq">x<sup>2</sup></button>
+          <button class="calc-btn btn-scientific" data-action="scientific" data-value="cube">x<sup>3</sup></button>
+          <button class="calc-btn btn-scientific" data-action="operator" data-value="power">x<sup>y</sup></button>
+          <button class="calc-btn btn-scientific" data-action="scientific" data-value="exp" data-first-value="exp" data-second-value="pow2" data-second-html="2<sup>x</sup>">e<sup>x</sup></button>
+          <button class="calc-btn btn-scientific" data-action="scientific" data-value="pow10">10<sup>x</sup></button>
+
+          <!-- Row 3 -->
+          <button class="calc-btn btn-scientific" data-action="scientific" data-value="reciprocal">1/x</button>
+          <button class="calc-btn btn-scientific" data-action="scientific" data-value="sqrt"><sup>2</sup>√x</button>
+          <button class="calc-btn btn-scientific" data-action="scientific" data-value="cbrt"><sup>3</sup>√x</button>
+          <button class="calc-btn btn-scientific" data-action="operator" data-value="yroot"><sup>y</sup>√x</button>
+          <button class="calc-btn btn-scientific" data-action="scientific" data-value="ln" data-first-value="ln" data-second-value="log2" data-second-html="log<sub>2</sub>">ln</button>
+          <button class="calc-btn btn-scientific" data-action="scientific" data-value="log10">log<sub>10</sub></button>
+
+          <!-- Row 4 -->
+          <button class="calc-btn btn-scientific" data-action="scientific" data-value="factorial">x!</button>
+          <button class="calc-btn btn-scientific" data-action="scientific" data-value="sin" data-first-value="sin" data-second-value="asin" data-second-html="sin<sup>-1</sup>">sin</button>
+          <button class="calc-btn btn-scientific" data-action="scientific" data-value="cos" data-first-value="cos" data-second-value="acos" data-second-html="cos<sup>-1</sup>">cos</button>
+          <button class="calc-btn btn-scientific" data-action="scientific" data-value="tan" data-first-value="tan" data-second-value="atan" data-second-html="tan<sup>-1</sup>">tan</button>
+          <button class="calc-btn btn-scientific" data-action="constant" data-value="e">e</button>
+          <button class="calc-btn btn-scientific" data-action="operator" data-value="ee">EE</button>
+
+          <!-- Row 5 (Matches Screenshot 2: Rand, sinh, cosh, tanh, pi, Rad) -->
+          <button class="calc-btn btn-scientific" data-action="constant" data-value="rand">Rand</button>
+          <button class="calc-btn btn-scientific" data-action="scientific" data-value="sinh" data-first-value="sinh" data-second-value="asinh" data-second-html="sinh<sup>-1</sup>">sinh</button>
+          <button class="calc-btn btn-scientific" data-action="scientific" data-value="cosh" data-first-value="cosh" data-second-value="acosh" data-second-html="cosh<sup>-1</sup>">cosh</button>
+          <button class="calc-btn btn-scientific" data-action="scientific" data-value="tanh" data-first-value="tanh" data-second-value="atanh" data-second-html="tanh<sup>-1</sup>">tanh</button>
+          <button class="calc-btn btn-scientific" data-action="constant" data-value="pi">π</button>
+          <button class="calc-btn btn-scientific" id="btn-rad" data-action="toggle-rad">Rad</button>
+        </div>
+
+        <!-- 2. Standard Basic Keypad (19 keys, exact 4 cols x 5 rows) -->
+        <div id="basic-keypad" class="basic-keypad">
+          <!-- Row 1: AC, +/-, %, ÷ -->
+          <button class="calc-btn btn-function" id="btn-clear" data-action="clear">AC</button>
+          <button class="calc-btn btn-function" data-action="toggle-sign">⁺/₋</button>
+          <button class="calc-btn btn-function" data-action="percent">%</button>
+          <button class="calc-btn btn-operator" data-action="operator" data-value="/">÷</button>
+
+          <!-- Row 2: 7, 8, 9, × -->
+          <button class="calc-btn btn-number" data-action="digit" data-value="7">7</button>
+          <button class="calc-btn btn-number" data-action="digit" data-value="8">8</button>
+          <button class="calc-btn btn-number" data-action="digit" data-value="9">9</button>
+          <button class="calc-btn btn-operator" data-action="operator" data-value="*">×</button>
+
+          <!-- Row 3: 4, 5, 6, − -->
+          <button class="calc-btn btn-number" data-action="digit" data-value="4">4</button>
+          <button class="calc-btn btn-number" data-action="digit" data-value="5">5</button>
+          <button class="calc-btn btn-number" data-action="digit" data-value="6">6</button>
+          <button class="calc-btn btn-operator" data-action="operator" data-value="-">−</button>
+
+          <!-- Row 4: 1, 2, 3, + -->
+          <button class="calc-btn btn-number" data-action="digit" data-value="1">1</button>
+          <button class="calc-btn btn-number" data-action="digit" data-value="2">2</button>
+          <button class="calc-btn btn-number" data-action="digit" data-value="3">3</button>
+          <button class="calc-btn btn-operator" data-action="operator" data-value="+">+</button>
+
+          <!-- Row 5: 0 (span 2), ., = -->
+          <button class="calc-btn btn-number btn-zero" data-action="digit" data-value="0">0</button>
+          <button class="calc-btn btn-number" data-action="decimal">.</button>
+          <button class="calc-btn btn-operator" data-action="equals">=</button>
+        </div>
+
+        <!-- 3. Portrait Scientific Numeric Keypad (20 keys, exact 4 cols x 5 rows for Screenshot 2) -->
+        <div id="portrait-sci-numeric-keypad" class="portrait-sci-numeric-keypad">
+          <!-- Row 1: Backspace, C, %, ÷ -->
+          <button class="calc-btn btn-function btn-backspace-key" data-action="backspace" title="Delete">
+            <svg viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: currentColor;">
+              <path d="M22 3H7c-.69 0-1.32.35-1.68.93L0 12l5.32 8.07c.36.58.99.93 1.68.93h15c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-3.7 13.3L17 17.7 13.5 14.2 10 17.7 8.7 16.3l3.5-3.5-3.5-3.5L10 7.9l3.5 3.5 3.5-3.5 1.3 1.4-3.5 3.5 3.5 3.5z"/>
+            </svg>
+          </button>
+          <button class="calc-btn btn-function btn-clear-portrait" data-action="clear">AC</button>
+          <button class="calc-btn btn-function" data-action="percent">%</button>
+          <button class="calc-btn btn-operator" data-action="operator" data-value="/">÷</button>
+
+          <!-- Row 2: 7, 8, 9, × -->
+          <button class="calc-btn btn-number" data-action="digit" data-value="7">7</button>
+          <button class="calc-btn btn-number" data-action="digit" data-value="8">8</button>
+          <button class="calc-btn btn-number" data-action="digit" data-value="9">9</button>
+          <button class="calc-btn btn-operator" data-action="operator" data-value="*">×</button>
+
+          <!-- Row 3: 4, 5, 6, − -->
+          <button class="calc-btn btn-number" data-action="digit" data-value="4">4</button>
+          <button class="calc-btn btn-number" data-action="digit" data-value="5">5</button>
+          <button class="calc-btn btn-number" data-action="digit" data-value="6">6</button>
+          <button class="calc-btn btn-operator" data-action="operator" data-value="-">−</button>
+
+          <!-- Row 4: 1, 2, 3, + -->
+          <button class="calc-btn btn-number" data-action="digit" data-value="1">1</button>
+          <button class="calc-btn btn-number" data-action="digit" data-value="2">2</button>
+          <button class="calc-btn btn-number" data-action="digit" data-value="3">3</button>
+          <button class="calc-btn btn-operator" data-action="operator" data-value="+">+</button>
+
+          <!-- Row 5: +/-, 0, ., = (Matches Screenshot 2) -->
+          <button class="calc-btn btn-function" data-action="toggle-sign">⁺/₋</button>
+          <button class="calc-btn btn-number" data-action="digit" data-value="0">0</button>
+          <button class="calc-btn btn-number" data-action="decimal">.</button>
+          <button class="calc-btn btn-operator" data-action="equals">=</button>
+        </div>
+
+        <!-- 4. Programmer Keypad (macOS Programmer Mode: Hex digits, bitwise operations, radix) -->
+        <div id="programmer-keypad" class="programmer-keypad" style="display: none;">
+          <!-- Programmer Left Section (Hex keys, bitwise logic, radix switches) -->
+          <div class="prog-left-section">
+            <!-- Row 1: A, B, AND, OR -->
+            <button class="calc-btn btn-prog-hex" data-action="hex-digit" data-value="A">A</button>
+            <button class="calc-btn btn-prog-hex" data-action="hex-digit" data-value="B">B</button>
+            <button class="calc-btn btn-scientific" data-action="bitwise" data-value="and">AND</button>
+            <button class="calc-btn btn-scientific" data-action="bitwise" data-value="or">OR</button>
+
+            <!-- Row 2: C, D, XOR, NOR -->
+            <button class="calc-btn btn-prog-hex" data-action="hex-digit" data-value="C">C</button>
+            <button class="calc-btn btn-prog-hex" data-action="hex-digit" data-value="D">D</button>
+            <button class="calc-btn btn-scientific" data-action="bitwise" data-value="xor">XOR</button>
+            <button class="calc-btn btn-scientific" data-action="bitwise" data-value="nor">NOR</button>
+
+            <!-- Row 3: E, F, NOT, 2's -->
+            <button class="calc-btn btn-prog-hex" data-action="hex-digit" data-value="E">E</button>
+            <button class="calc-btn btn-prog-hex" data-action="hex-digit" data-value="F">F</button>
+            <button class="calc-btn btn-scientific" data-action="bitwise" data-value="not">NOT</button>
+            <button class="calc-btn btn-scientific" data-action="bitwise" data-value="twos">2's</button>
+
+            <!-- Row 4: <<, >>, RoL, RoR -->
+            <button class="calc-btn btn-scientific" data-action="bitwise" data-value="lsh">&lt;&lt;</button>
+            <button class="calc-btn btn-scientific" data-action="bitwise" data-value="rsh">&gt;&gt;</button>
+            <button class="calc-btn btn-scientific" data-action="bitwise" data-value="rol">RoL</button>
+            <button class="calc-btn btn-scientific" data-action="bitwise" data-value="ror">RoR</button>
+
+            <!-- Row 5: Radix input base switches (16, 10, 8, 2) -->
+            <button class="calc-btn btn-prog-radix" data-action="set-radix" data-value="16">16 Hex</button>
+            <button class="calc-btn btn-prog-radix active" data-action="set-radix" data-value="10">10 Dec</button>
+            <button class="calc-btn btn-prog-radix" data-action="set-radix" data-value="8">8 Oct</button>
+            <button class="calc-btn btn-prog-radix" data-action="set-radix" data-value="2">2 Bin</button>
+          </div>
+
+          <!-- Programmer Right Section (Numeric & Arithmetic Operators) -->
+          <div class="prog-right-section">
+            <!-- Row 1 -->
+            <button class="calc-btn btn-function" id="btn-clear-prog" data-action="clear">AC</button>
+            <button class="calc-btn btn-function" data-action="backspace" title="Delete">⌫</button>
+            <button class="calc-btn btn-function" data-action="toggle-sign">⁺/₋</button>
+            <button class="calc-btn btn-operator" data-action="operator" data-value="/">÷</button>
+
+            <!-- Row 2 -->
+            <button class="calc-btn btn-number" data-action="digit" data-value="7">7</button>
+            <button class="calc-btn btn-number" data-action="digit" data-value="8">8</button>
+            <button class="calc-btn btn-number" data-action="digit" data-value="9">9</button>
+            <button class="calc-btn btn-operator" data-action="operator" data-value="*">×</button>
+
+            <!-- Row 3 -->
+            <button class="calc-btn btn-number" data-action="digit" data-value="4">4</button>
+            <button class="calc-btn btn-number" data-action="digit" data-value="5">5</button>
+            <button class="calc-btn btn-number" data-action="digit" data-value="6">6</button>
+            <button class="calc-btn btn-operator" data-action="operator" data-value="-">−</button>
+
+            <!-- Row 4 -->
+            <button class="calc-btn btn-number" data-action="digit" data-value="1">1</button>
+            <button class="calc-btn btn-number" data-action="digit" data-value="2">2</button>
+            <button class="calc-btn btn-number" data-action="digit" data-value="3">3</button>
+            <button class="calc-btn btn-operator" data-action="operator" data-value="+">+</button>
+
+            <!-- Row 5 -->
+            <button class="calc-btn btn-number btn-zero" data-action="digit" data-value="0">0</button>
+            <button class="calc-btn btn-number" data-action="decimal">.</button>
+            <button class="calc-btn btn-operator" data-action="equals">=</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- iPhone Home Indicator Bar -->
+      <div class="iphone-home-indicator" id="iphone-home-indicator"></div>
+
+      <!-- Slide-up History Tape Sheet (Inside Phone screen, completely hidden until opened) -->
+      <div id="history-drawer" class="history-drawer">
+        <div class="history-sheet-handle"></div>
+        <div class="history-header">
+          <div class="history-title">
+            <svg style="width: 18px; height: 18px; fill: currentColor;" viewBox="0 0 24 24">
+              <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.2 3.2.8-1.3-4.5-2.7V7z"/>
+            </svg>
+            Calculation History
+          </div>
+          <div class="history-actions">
+            <button id="history-clear-btn" class="history-btn-small">Clear</button>
+            <button id="history-close-btn" class="history-btn-small">Done</button>
+          </div>
+        </div>
+        <div id="history-list" class="history-list"></div>
+      </div>
+
+      <!-- macOS Interactive Resize Handle (Bottom-right corner in Mac mode) -->
+      <div class="mac-resize-handle" id="mac-resize-handle" title="Drag to resize calculator">
+        <svg viewBox="0 0 10 10" width="10" height="10" fill="currentColor">
+          <circle cx="8" cy="8" r="1.1" />
+          <circle cx="5" cy="8" r="1.1" />
+          <circle cx="8" cy="5" r="1.1" />
+          <circle cx="2" cy="8" r="1.1" />
+          <circle cx="5" cy="5" r="1.1" />
+          <circle cx="8" cy="2" r="1.1" />
+        </svg>
+      </div>
+
+      <!-- Pill Toast Feedback -->
+      <div id="toast" class="toast">Copied to Clipboard</div>
+
+    </div>
+
+    <!-- Quick Keyboard Guide & Shortcuts Footer -->
+    <footer class="calc-footer">
+      <span>⌨️ Keyboard: 0-9 • + - * / • Enter • Esc (AC) • Backspace • % • ( )</span>
+    </footer>
+  </main>
+
+  <!-- Scripts -->
+  <script src="audio.js"></script>
+  <script src="converter.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
